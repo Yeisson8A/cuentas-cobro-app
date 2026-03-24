@@ -1,1 +1,307 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the theme object.
+$cuentas-cobro-app-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+:root {
+  --primary: #1565c0;
+  --secondary: #42a5f5;
+  --background: #f5f7fa;
+}
+
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($cuentas-cobro-app-theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($cuentas-cobro-app-theme);
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--background);
+  font-family: "Inter", sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+  background: linear-gradient(135deg, #1565c0, #42a5f5);
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* ESPACIO */
+.spacer {
+  flex: 10;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  gap: 10px;
+}
+
+/* LINKS */
+.menu a {
+  color: black;
+  position: relative;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px !important;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+}
+
+.menu a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+.menu a:hover::after {
+  width: 100%;
+}
+
+/* ACTIVO */
+.active-link {
+  background: #1565c0;
+  color: white !important;
+}
+
+/* CONTENIDO */
+.content {
+  padding: 20px;
+}
+
+/* CONTENEDOR */
+.dashboard-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* CARDS */
+.card {
+  border-radius: 16px !important;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08) !important;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* CARD FILTRO */
+.filtro-card {
+  padding: 20px;
+}
+
+/* HEADER */
+.filtro-header {
+  margin-bottom: 15px;
+}
+
+.filtro-header h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* CONTENEDOR */
+.filtro-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* INPUTS */
+.filtro-input {
+  min-width: 220px;
+  flex: 1;
+}
+
+/* BOTÓN */
+.btn-filtrar {
+  height: 56px;
+  padding: 0 24px;
+  border-radius: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+/* HOVER */
+.btn-filtrar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(21, 101, 192, 0.3);
+}
+
+/* KPI GRID */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* KPI CARD */
+.kpi-card p {
+  color: #6b7280;
+  margin: 0;
+}
+
+.kpi-card h1 {
+  margin: 10px 0 0;
+  font-size: 32px;
+  color: #1565c0;
+}
+
+/* CRECIMIENTO */
+.crecimiento-list {
+  margin-top: 15px;
+}
+
+.crecimiento-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* COLORES */
+.positive {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.negative {
+  color: #c62828;
+  font-weight: bold;
+}
+
+/* CONTENEDOR CENTRADO */
+.upload-container {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f7fa;
+}
+
+/* CARD */
+.upload-card {
+  width: 400px;
+  padding: 30px;
+  border-radius: 20px !important;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* SUBTITULO */
+.subtitle {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* INPUT FILE */
+.file-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+/* NOMBRE ARCHIVO */
+.file-name {
+  font-size: 14px;
+  color: #555;
+}
+
+/* BOTÓN */
+.btn-upload {
+  height: 48px;
+  border-radius: 12px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+/* HOVER */
+.btn-upload:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(21, 101, 192, 0.3);
+}
+
+/* SUCCESS */
+.snackbar-success {
+  background: #2e7d32 !important;
+  color: #fff !important;
+  font-weight: 500;
+}
+
+/* WARNING */
+.snackbar-warning {
+  background: #e0dd1f !important;
+  color: #fff !important;
+  font-weight: 500;
+}
+
+/* ERROR */
+.snackbar-error {
+  background: #c62828 !important;
+  color: #fff !important;
+  font-weight: 500;
+}

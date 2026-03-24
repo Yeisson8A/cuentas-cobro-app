@@ -1,0 +1,47 @@
+<div class="upload-container">
+  <mat-card class="upload-card">
+    <h2>Subir Cuenta de Cobro</h2>
+    <p class="subtitle">Carga tu archivo PDF para procesarlo automáticamente</p>
+
+    <!-- INPUT FILE -->
+    <div class="file-input">
+      <!-- INPUT REAL -->
+      <input
+        type="file"
+        #fileInput
+        (change)="onFileSelected($event)"
+        accept="application/pdf"
+        hidden
+      />
+
+      <!-- BOTÓN -->
+      <button mat-stroked-button (click)="fileInput.click()">
+        Seleccionar archivo
+      </button>
+
+      @if (selectedFile) {
+        <!-- NOMBRE -->
+        <span class="file-name">
+          {{ selectedFile.name }}
+        </span>
+      }
+    </div>
+
+    <!-- BOTÓN -->
+    <button
+      mat-raised-button
+      color="primary"
+      class="btn-upload"
+      [disabled]="!selectedFile"
+      (click)="upload()"
+    >
+      <mat-icon>upload_file</mat-icon>
+
+      @if (loading) {
+        <mat-spinner diameter="20"></mat-spinner>
+      }
+
+      {{ loading ? "Subiendo..." : "Subir PDF" }}
+    </button>
+  </mat-card>
+</div>

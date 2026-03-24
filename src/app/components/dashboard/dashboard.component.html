@@ -1,0 +1,85 @@
+@if (loading) {
+  <div>Cargando...</div>
+}
+
+@if (error) {
+  <mat-card color="warn">
+    {{ error }}
+  </mat-card>
+}
+
+@if (!loading) {
+  <div class="dashboard-container">
+    <!-- FILTROS -->
+    <mat-card class="card filtro-card">
+      <div class="filtro-header">
+        <h3>Filtrar por fechas</h3>
+      </div>
+
+      <div class="filtro-content">
+        <mat-form-field appearance="outline" class="filtro-input">
+          <mat-label>Fecha inicio</mat-label>
+          <input matInput [matDatepicker]="picker1" [(ngModel)]="fechaInicio" />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filtro-input">
+          <mat-label>Fecha fin</mat-label>
+          <input matInput [matDatepicker]="picker2" [(ngModel)]="fechaFin" />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="btn-filtrar"
+          (click)="aplicarFiltro()"
+          [disabled]="!fechaInicio || !fechaFin"
+        >
+          <mat-icon>filter_alt</mat-icon>
+          Aplicar
+        </button>
+      </div>
+    </mat-card>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <mat-card class="card kpi-card">
+        <p>Total Cuentas</p>
+        <h1>{{ resumen?.total_cuentas }}</h1>
+      </mat-card>
+
+      <mat-card class="card kpi-card">
+        <p>Total Facturado</p>
+        <h1>{{ resumen?.total_facturado | currency }}</h1>
+      </mat-card>
+    </div>
+
+    <!-- CRECIMIENTO -->
+    <mat-card class="card crecimiento-card">
+      <h3>Crecimiento Mensual</h3>
+
+      <div class="crecimiento-list">
+        @for (item of crecimiento; track $index) {
+          <div class="crecimiento-item">
+            <span>{{ item.periodo }}</span>
+            <span
+              [class.positive]="item.crecimiento > 0"
+              [class.negative]="item.crecimiento < 0"
+            >
+              {{ item.crecimiento }}%
+            </span>
+          </div>
+        }
+      </div>
+    </mat-card>
+  </div>
+}
