@@ -6,10 +6,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error) => {
 
-      let message = 'Error inesperado';
+      let message = 'Ha ocurrido un error';
 
-      if (error?.error?.error?.message) {
-        message = error.error.error.message;
+      if (error?.error?.message) {
+        message = error.error.message;
       }
 
       console.error('HTTP Error:', error);

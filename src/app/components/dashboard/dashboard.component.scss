@@ -1,0 +1,91 @@
+/* CONTENEDOR */
+.dashboard-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* CARDS */
+.card {
+  border-radius: 16px !important;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08) !important;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* CARD FILTRO */
+.filtro-card {
+  padding: 20px;
+}
+
+/* HEADER */
+.filtro-header {
+  margin-bottom: 15px;
+}
+
+.filtro-header h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* CONTENEDOR */
+.filtro-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* INPUTS */
+.filtro-input {
+  min-width: 220px;
+  flex: 1;
+}
+
+/* KPI GRID */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* KPI CARD */
+.kpi-card p {
+  color: #6b7280;
+  margin: 0;
+}
+
+.kpi-card h1 {
+  margin: 10px 0 0;
+  font-size: 32px;
+  color: #1565c0;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+
+  z-index: 2000;
+}

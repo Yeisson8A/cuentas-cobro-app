@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { UploadService } from '../../core/services/upload.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-upload',
@@ -14,7 +14,6 @@ import { UploadService } from '../../core/services/upload.service';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule,
   ],
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.scss',
@@ -22,35 +21,15 @@ import { UploadService } from '../../core/services/upload.service';
 export class UploadComponent {
   selectedFile?: File;
   loading = false;
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
-  constructor(private uploadService: UploadService, private snackBar: MatSnackBar) {}
-
-  showSuccess(message: string) {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 3000,
-      panelClass: ['snackbar-success'],
-    });
-  }
-
-  showWarning(message: string) {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 4000,
-      panelClass: ['snackbar-warning'],
-    });
-  }
-
-  showError(message: string) {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 4000,
-      panelClass: ['snackbar-error'],
-    });
-  }
+  constructor(private uploadService: UploadService, private notification: NotificationService) {}
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
 
     if (file && file.type !== 'application/pdf') {
-      this.showWarning('Solo se permiten archivos PDF');
+      this.notification.warning('Solo se permiten archivos PDF');
       return;
     }
 
@@ -67,18 +46,20 @@ export class UploadComponent {
         .upload(this.selectedFile)
         .then((response) => {
           if (response?.error) {
-            this.showWarning(response?.message);
+            this.notification.warning(response?.message);
           }
           else {
-            this.showSuccess(response?.message);
+            this.notification.success(response?.message);
           }
         })
         .catch((error) => {
-          this.showError(error?.message);
+          this.notification.error(error?.message);
         });
       this.selectedFile = undefined;
+      // RESET del input
+      this.fileInput.nativeElement.value = '';
     } catch (error: any) {
-      this.showError(error?.message);
+      this.notification.error(error?.message);
     } finally {
       this.loading = false;
     }

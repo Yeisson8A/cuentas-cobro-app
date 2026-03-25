@@ -1,0 +1,80 @@
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+
+  /* GLASS EFFECT */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* BORDE SUAVE */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  /* SOMBRA */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* ESPACIO */
+.spacer {
+  flex: 10;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  gap: 10px;
+}
+
+/* LINKS */
+.menu a {
+  color: black;
+  position: relative;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px !important;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+}
+
+.menu a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+.menu a:hover::after {
+  width: 100%;
+}
+
+/* ACTIVO */
+.active-link {
+  background: #1565c0;
+  color: white !important;
+}
+
+/* CONTENIDO */
+.content {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-top: 80px;
+}

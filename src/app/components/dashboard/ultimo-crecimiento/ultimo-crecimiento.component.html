@@ -1,0 +1,13 @@
+<div class="crecimiento-list">
+  @for (item of data; track $index) {
+    <div class="crecimiento-item">
+      <span>{{ item.periodo }}</span>
+      <span
+        [class.positive]="item.crecimiento > 0"
+        [class.negative]="item.crecimiento < 0"
+      >
+        {{ item.crecimiento }}%
+      </span>
+    </div>
+  }
+</div>

@@ -1,11 +1,7 @@
 @if (loading) {
-  <div>Cargando...</div>
-}
-
-@if (error) {
-  <mat-card color="warn">
-    {{ error }}
-  </mat-card>
+  <div class="loading-container">
+    <mat-spinner diameter="80"></mat-spinner>
+  </div>
 }
 
 @if (!loading) {
@@ -17,7 +13,7 @@
       </div>
 
       <div class="filtro-content">
-        <mat-form-field appearance="outline" class="filtro-input">
+        <mat-form-field class="filtro-input">
           <mat-label>Fecha inicio</mat-label>
           <input matInput [matDatepicker]="picker1" [(ngModel)]="fechaInicio" />
           <mat-datepicker-toggle
@@ -27,7 +23,7 @@
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="filtro-input">
+        <mat-form-field class="filtro-input">
           <mat-label>Fecha fin</mat-label>
           <input matInput [matDatepicker]="picker2" [(ngModel)]="fechaFin" />
           <mat-datepicker-toggle
@@ -38,14 +34,18 @@
         </mat-form-field>
 
         <button
-          mat-raised-button
+          mat-flat-button
           color="primary"
-          class="btn-filtrar"
           (click)="aplicarFiltro()"
           [disabled]="!fechaInicio || !fechaFin"
         >
           <mat-icon>filter_alt</mat-icon>
           Aplicar
+        </button>
+
+        <button mat-flat-button color="primary" (click)="limpiarFiltro()">
+          <mat-icon>filter_alt_off</mat-icon>
+          Limpiar
         </button>
       </div>
     </mat-card>
@@ -61,25 +61,49 @@
         <p>Total Facturado</p>
         <h1>{{ resumen?.total_facturado | currency }}</h1>
       </mat-card>
+
+      <mat-card class="card kpi-card">
+        <p>Último Crecimiento Mensual</p>
+        <app-ultimo-crecimiento
+          [data]="ultimo_crecimiento"
+          class="crecimiento-card"
+        ></app-ultimo-crecimiento>
+      </mat-card>
     </div>
 
-    <!-- CRECIMIENTO -->
-    <mat-card class="card crecimiento-card">
+    <mat-card class="card">
       <h3>Crecimiento Mensual</h3>
-
-      <div class="crecimiento-list">
-        @for (item of crecimiento; track $index) {
-          <div class="crecimiento-item">
-            <span>{{ item.periodo }}</span>
-            <span
-              [class.positive]="item.crecimiento > 0"
-              [class.negative]="item.crecimiento < 0"
-            >
-              {{ item.crecimiento }}%
-            </span>
-          </div>
-        }
-      </div>
+      <app-waterfall-crecimiento [data]="crecimiento">
+      </app-waterfall-crecimiento>
     </mat-card>
+
+    <!-- POR PERIODO -->
+    <mat-card class="card">
+      <h3>Evolución por Periodo</h3>
+      <div class="chart-header">
+        <mat-button-toggle-group
+          [(ngModel)]="metric"
+          appearance="standard"
+        >
+          <mat-button-toggle value="total"> Total $ </mat-button-toggle>
+          <mat-button-toggle value="cantidad"> Cantidad </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <app-totales-periodo [data]="periodos" [metric]="metric">
+      </app-totales-periodo>
+    </mat-card>
+
+    <!-- TOP PERIODOS -->
+    <div class="kpi-grid">
+      <mat-card class="card kpi-card">
+        <h3>Top Periodos</h3>
+        <app-top-periodos [data]="top"> </app-top-periodos>
+      </mat-card>
+
+      <mat-card class="card kpi-card">
+        <h3>Totales por Persona</h3>
+        <app-totales-persona [data]="personas"></app-totales-persona>
+      </mat-card>
+    </div>
   </div>
 }

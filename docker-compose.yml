@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  cuentas-cobro-app:
+    build: .
+    container_name: cuentas-cobro-app
+    ports:
+      - "4200:80"
+    networks:
+      - cuentas-cobro-net
+
+networks:
+  cuentas-cobro-net:
+    external: true
