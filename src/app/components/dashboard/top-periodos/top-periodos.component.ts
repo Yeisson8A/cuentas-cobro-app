@@ -17,9 +17,13 @@ export class TopPeriodosComponent implements OnChanges {
     }
   }
 
+  createChart(dom: HTMLElement) {
+    return echarts.init(dom);
+  }
+
   renderChart() {
     const chartDom = document.getElementById('pieChart')!;
-    const myChart = echarts.init(chartDom);
+    const myChart = this.createChart(chartDom);
 
     const formattedData = this.data.map((d) => ({
       name: d.periodo,

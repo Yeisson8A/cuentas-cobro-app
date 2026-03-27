@@ -18,9 +18,13 @@ export class TotalesPeriodoComponent implements OnChanges {
     }
   }
 
+  createChart(dom: HTMLElement) {
+    return echarts.init(dom);
+  }
+
   renderChart() {
     const chartDom = document.getElementById('lineChart')!;
-    const myChart = echarts.init(chartDom);
+    const myChart = this.createChart(chartDom);
 
     const periods = this.data.map((d) => d.periodo);
     const values = this.data.map((d) =>

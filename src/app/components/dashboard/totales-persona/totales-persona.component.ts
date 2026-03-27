@@ -59,6 +59,10 @@ export class TotalesPersonaComponent {
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
+  exportFile(workbook: any, fileName: string) {
+    XLSX.writeFile(workbook, fileName);
+  }
+
   // EXPORTAR A EXCEL
   exportToExcel() {
     const data = this.dataSource.filteredData.map((item) => ({
@@ -72,7 +76,6 @@ export class TotalesPersonaComponent {
     const workbook = XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Cuentas');
-
-    XLSX.writeFile(workbook, 'cuentas_por_persona.xlsx');
+    this.exportFile(workbook, 'cuentas_por_persona.xlsx');
   }
 }

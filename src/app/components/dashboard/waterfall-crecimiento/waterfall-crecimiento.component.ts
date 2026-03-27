@@ -6,7 +6,7 @@ import * as echarts from 'echarts';
   standalone: true,
   imports: [],
   templateUrl: './waterfall-crecimiento.component.html',
-  styleUrl: './waterfall-crecimiento.component.scss'
+  styleUrl: './waterfall-crecimiento.component.scss',
 })
 export class WaterfallCrecimientoComponent implements OnChanges {
   @Input() data: any[] = [];
@@ -17,12 +17,16 @@ export class WaterfallCrecimientoComponent implements OnChanges {
     }
   }
 
+  createChart(dom: HTMLElement) {
+    return echarts.init(dom);
+  }
+
   renderChart() {
     const chartDom = document.getElementById('chart')!;
-    const myChart = echarts.init(chartDom);
+    const myChart = this.createChart(chartDom);
 
-    const periods = this.data.map(d => d.periodo);
-    const values = this.data.map(d => d.crecimiento);
+    const periods = this.data.map((d) => d.periodo);
+    const values = this.data.map((d) => d.crecimiento);
 
     // Transformar para waterfall
     let cumulative = 0;
@@ -42,17 +46,17 @@ export class WaterfallCrecimientoComponent implements OnChanges {
         formatter: (params: any) => {
           const value = params[1].value;
           return `${params[1].name}: ${value}%`;
-        }
+        },
       },
       xAxis: {
         type: 'category',
-        data: periods
+        data: periods,
       },
       yAxis: {
         type: 'value',
         axisLabel: {
-          formatter: '{value}%'
-        }
+          formatter: '{value}%',
+        },
       },
       series: [
         {
@@ -60,9 +64,9 @@ export class WaterfallCrecimientoComponent implements OnChanges {
           type: 'bar',
           stack: 'total',
           itemStyle: {
-            color: 'transparent'
+            color: 'transparent',
           },
-          data: base
+          data: base,
         },
         {
           name: 'Crecimiento',
@@ -71,15 +75,15 @@ export class WaterfallCrecimientoComponent implements OnChanges {
           label: {
             show: true,
             position: 'top',
-            formatter: '{c}%'
+            formatter: '{c}%',
           },
           itemStyle: {
             color: (params: any) => {
               return params.value >= 0 ? '#2e7d32' : '#c62828';
-            }
+            },
           },
-          data: actual
-        }
+          data: actual,
+        },
       ],
       dataZoom: [
         {
